@@ -168,7 +168,7 @@ function App() {
       <button className="logo-button" onClick={() => go("home")} aria-label="VEYRO API home"><Logo /></button>
       <motion.nav className={"nav-links " + (mobileNav ? "nav-open" : "")} initial={false} animate={{ opacity: 1, y: 0 }} transition={{ type: "spring", stiffness: 420, damping: 34 }}>
         {navItems.map(([label, id]) => <motion.button key={id} whileHover={{ y: -1 }} whileTap={{ scale: .97 }} className={"nav-link " + (page === id ? "active" : "")} onClick={() => go(id)}>{label}{page === id && <motion.span className="nav-active-indicator" layoutId="nav-active-indicator" transition={{ type: "spring", stiffness: 520, damping: 38 }} />}</motion.button>)}
-      </nav>
+      </motion.nav>
       <div className="top-actions">
         <button className="icon-button theme-toggle" onClick={() => setTheme(theme === "dark" ? "light" : "dark")} aria-label="Toggle theme">{theme === "dark" ? <Sun size={17} /> : <Moon size={17} />}</button>
         {isLoggedIn
