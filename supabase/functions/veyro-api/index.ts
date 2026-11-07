@@ -106,7 +106,8 @@ async function authenticateApi(req: Request) {
   return { key: { ...key, requests_used: used + 1 } };
 }
 async function getAirport(icao: string, environment: string) {
-  if (environment === "sandbox" && icao === "DEMO") return DEMO_AIRPORT;
+  // Sandbox keys are isolated from the production airport tables.
+  if (environment === "sandbox") return icao === "DEMO" ? DEMO_AIRPORT : null;
   const { data: airport, error } = await admin.from("veyro_airports").select("*").eq("icao", icao).maybeSingle();
   if (error || !airport) return null;
   const { data: runways } = await admin.from("veyro_airport_runways").select("*").eq("airport_icao", icao);
