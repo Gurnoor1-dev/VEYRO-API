@@ -176,7 +176,7 @@ function App() {
           : <button className="button button-primary button-small" onClick={() => { setAuthOpen(true); setAuthMode("signin"); }}>Developer sign in <ArrowRight size={15}/></button>}
         <button className="icon-button mobile-menu" onClick={() => setMobileNav(!mobileNav)} aria-label="Toggle navigation">{mobileNav ? <X/> : <Menu/>}</button>
       </div>
-    </header>
+    </motion.header>
 
     <main>
       <AnimatePresence mode="wait">
