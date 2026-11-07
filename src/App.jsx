@@ -40,8 +40,8 @@ const sampleResponse = {
 
 function Logo({ small = false }) {
   return <div className={"brand " + (small ? "brand-small" : "")}>
-    <div className="brand-mark"><Plane size={small ? 15 : 18} strokeWidth={2.4} /></div>
-    <span>VEYRO<span className="brand-light"> API</span></span>
+    <img className="brand-logo" src="https://veyro-analytics.vercel.app/logo.png" alt="VEYRO" />
+    <span className="brand-light">API</span>
   </div>;
 }
 
@@ -164,11 +164,11 @@ function App() {
 
   return <div className={"app theme-" + theme}>
     <div className="ambient ambient-one" /><div className="ambient ambient-two" />
-    <header className="topbar">
+    <motion.header className="topbar" initial={{ y: -18, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: .65, ease: [0.22, 1, 0.36, 1] }}>
       <button className="logo-button" onClick={() => go("home")} aria-label="VEYRO API home"><Logo /></button>
-      <nav className={"nav-links " + (mobileNav ? "nav-open" : "")}>
-        {navItems.map(([label, id]) => <button key={id} className={"nav-link " + (page === id ? "active" : "")} onClick={() => go(id)}>{label}</button>)}
-      </nav>
+      <motion.nav className={"nav-links " + (mobileNav ? "nav-open" : "")} initial={false} animate={{ opacity: 1, y: 0 }} transition={{ type: "spring", stiffness: 420, damping: 34 }}>
+        {navItems.map(([label, id]) => <motion.button key={id} whileHover={{ y: -1 }} whileTap={{ scale: .97 }} className={"nav-link " + (page === id ? "active" : "")} onClick={() => go(id)}>{label}{page === id && <motion.span className="nav-active-indicator" layoutId="nav-active-indicator" transition={{ type: "spring", stiffness: 520, damping: 38 }} />}</motion.button>)}
+      </motion.nav>
       <div className="top-actions">
         <button className="icon-button theme-toggle" onClick={() => setTheme(theme === "dark" ? "light" : "dark")} aria-label="Toggle theme">{theme === "dark" ? <Sun size={17} /> : <Moon size={17} />}</button>
         {isLoggedIn
@@ -176,7 +176,7 @@ function App() {
           : <button className="button button-primary button-small" onClick={() => { setAuthOpen(true); setAuthMode("signin"); }}>Developer sign in <ArrowRight size={15}/></button>}
         <button className="icon-button mobile-menu" onClick={() => setMobileNav(!mobileNav)} aria-label="Toggle navigation">{mobileNav ? <X/> : <Menu/>}</button>
       </div>
-    </header>
+    </motion.header>
 
     <main>
       <AnimatePresence mode="wait">
